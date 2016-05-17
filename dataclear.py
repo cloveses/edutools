@@ -2,6 +2,8 @@ from myxl import *
 
 datas = get_data('zhsz.xls')
 
+#数据格式：学校 考号 姓名 各门课等级
+
 def verifyd(datas):
     for data in datas:
         data = [d.strip('\n').strip() for d in data]
