@@ -113,7 +113,7 @@ def save_data_sheets_xlsx(filename,datass,sheetnames):
 
 def merge_files_data(mydir,res_filename):
     # 合并指定目录(mydir)下的分表数据到一个电子表格文件(res_filename)中的一张表中
-    if not os.path.exits(mydir):
+    if not os.path.exists(mydir):
         print('Directory is not exist.')
         return
     filenames = get_files(mydir)
