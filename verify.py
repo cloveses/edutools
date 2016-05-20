@@ -100,6 +100,15 @@ def verify_file(filename,filters,limits,ncols):
     print(info)
     return info
 
+def verify_files(mdir,filters,limits,ncols):
+    files = get_files(mdir)
+    infos = []
+    for mfile in files:
+        info = verify_file(mfile,filters,limits,ncols)
+        infos.append((mfile,info))
+    return infos    
+
+
 if __name__ == "__main__":
     cols_A = {
         'min':0,
