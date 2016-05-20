@@ -12,7 +12,19 @@ def get_data(filename):
     nrows = ws.nrows
     for i in range(nrows):
         data = ws.row_values(i)
-        datas.append(ws.row_values(i))
+        datas.append(data)
+    #    print(datas)
+    return datas
+
+def get_data_cols(filename):
+    # 按列获取数据
+    datas = []
+    w = xlrd.open_workbook(filename)
+    ws = w.sheets()[0]
+    ncols = ws.ncols
+    for i in range(ncols):
+        data = ws.col_values(i)
+        datas.append(data)
     #    print(datas)
     return datas
 
