@@ -32,6 +32,7 @@ def get_files(directory):
     files = []
     files = os.listdir(directory)
     files = [f for f in files if f.endswith('.xls') or f.endswith('.xlsx')]
+    files = [os.path.join(directory,f) for f in files]
     return files
     
 def save_datas(filename,datas):
@@ -76,8 +77,10 @@ def test():
                  (2,'34333333332345345','顺中','cde')],[
             (3,'354634324234343566','dddgd','efd'),]]
     save_data_sheets('tttt.xls',datass,['sheet1','sheet2'])
-    
+
+
 def countit(datas):
+    # 对(datas)列表中的数据项进行分类统计并输出
     from collections import Counter
     c = Counter(datas)
     for k,v in c.items():
@@ -107,6 +110,19 @@ def save_data_sheets_xlsx(filename,datass,sheetnames):
             for coli,celld in enumerate(row):
                 ws.write(rowi,coli,celld)
     w.close()
+
+def merge_files_data(mydir,res_filename):
+    # 合并指定目录(mydir)下的分表数据到一个电子表格文件(res_filename)中的一张表中
+    if not os.path.exits(mydir):
+        print('Directory is not exist.')
+        return
+    filenames = get_files(mydir)
+    datass = []
+    for filename in filenames:
+        datas = get_data(filename)
+        datass.extend(datas)
+    if datass:
+        save_datas_xlsx(res_filename,datass)
 
 if __name__ == '__main__':
     # test()
