@@ -1,4 +1,5 @@
 import os
+import sys
 from myxl import merge_files_data
 
 # 参数中指定目录:python3 combinefile.py .
@@ -8,3 +9,5 @@ if __name__ == '__main__':
         mdir = sys.argv[1]
         res_file = os.path.join(mdir,'resfile.xlsx')
         merge_files_data(mdir,res_file)
+        print('Combine files had finished!')
+        print('File name is :',res_file)

@@ -84,7 +84,7 @@ def save_datas_xlsx(filename,datas):
             w_sheet.write(rowi,coli,celld)
     w.close()
 
-def summary_col(filename,col_seq_num,res_filename='res.xlsx'):
+def summary_col(filename,col_seq_num,res_filename='sum.xlsx'):
     # 统计指定电子表格文件中的指定序号列到指定的文件中
     # filename 指定电子表格文件
     # col_seq_num 列序号从0开始

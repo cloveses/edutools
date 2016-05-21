@@ -99,7 +99,6 @@ def verify_file(filename,filters,limits,ncols):
             if cell_info:
                 pos_info = "行:%d 列:%d:" % (nrow + 1,ncol + 1)
                 info += ' '.join((pos_info,cell_info,'\n'))
-    print(info)
     return info
 
 def verify_files(mdir,filters,limits,ncols):
@@ -156,5 +155,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         default_limit = sys.argv[1]
     mylimits = __import__(default_limit)
-    verify_files(mylimits.verify_dir,mylimits.filters,
-        mylimits.limits,mylimits.cols_num)
+    infos = verify_files(mylimits.verify_dir,mylimits.filters,
+        mylimits.limits,mylimits.cols_sum)
+    print()
+    for info in infos:
+        if info[1]:
+            print(info[0],info[1])
+        else:
+            print(info[0],'Data right!\n')
