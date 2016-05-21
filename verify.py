@@ -78,6 +78,7 @@ def verify_data_str(data,cols_limits=None):
 
 def verify_file(filename,filters,limits,ncols):
     """
+    验证单个文件
     filters 每列过滤方法列表
     limits  每列限制条件字典
     ncols   总列数
@@ -101,6 +102,7 @@ def verify_file(filename,filters,limits,ncols):
     return info
 
 def verify_files(mdir,filters,limits,ncols):
+    # 验证目录下多个文件
     files = get_files(mdir)
     infos = []
     for mfile in files:
@@ -110,46 +112,37 @@ def verify_files(mdir,filters,limits,ncols):
 
 
 if __name__ == "__main__":
-    cols_A = {
-        'min':0,
-        'max':100,
-    }
+    # 验证DEMO
+    # cols_A = {
+    #     'min':0,
+    #     'max':100,
+    # }
 
-    cols_B = {
-        'length_min':4,
-        'length_max':8,
-        're_exp':r'[ab]',
-    }
+    # cols_B = {
+    #     'length_min':4,
+    #     'length_max':8,
+    #     're_exp':r'[ab]',
+    # }
 
-    cols_C = {
-        'length_min':4,
-        're_exp':r'[ab]',
-        'choices':['dkdakk','dddkb'],
-    }
+    # cols_C = {
+    #     'length_min':4,
+    #     're_exp':r'[ab]',
+    #     'choices':['dkdakk','dddkb'],
+    # }
 
-    cols_D = {
-        'min':0,
-        'max':100,
-    }
-    limits = [cols_A,cols_B,cols_C,cols_D]
-    filters = [verify_data_int,verify_data_str,verify_data_str,verify_data_float]
-    print(verify_data_int(3,cols_A))
-    print(verify_data_int(-3,cols_A))
-    print(verify_data_int(300,cols_A))
-    print(verify_data_float(3.0,cols_D))
-    print(verify_data_int(-3.0,cols_D))
-    print(verify_data_int(300.0,cols_D))
-    print(verify_data_str('hdah',cols_B))
-    print(verify_data_str('ah',cols_B))
-    print(verify_data_str('dsffgefeeeeeddah',cols_B))
-    print(verify_data_str('hdkyuh',cols_B))
-    print(verify_data_str('dddkb',cols_C))
-    print(verify_data_str('dfdddkb',cols_C))
-    datass = [[3.0,-3.0,30.0],['hdah','dda','kdkdddjdda',],['dddkb','dddkb','abcdd',],[4.5,35.6,300.0]]
-    for i,(datas,fun,limit) in enumerate(zip(datass,filters,limits)):
-        for j,data in enumerate(datas):
-            info = fun(data,limit)
-            if info:
-                print((j+1,i+1),data,info)
-    print('\n测试文件开始：')
-    verify_file('tst.xls',filters,limits,4)
+    # cols_D = {
+    #     'min':0,
+    #     'max':100,
+    # }
+    # limits = [cols_A,cols_B,cols_C,cols_D]
+    # filters = [verify_data_int,verify_data_str,verify_data_str,verify_data_float]
+    # verify_file('tst.xls',filters,limits,4)
+
+    # summary_col(filename,col_seq_num,res_filename='res.xlsx'):
+    # 统计指定电子表格文件中的指定序号列到指定的文件中
+    # filename 指定电子表格文件
+    # col_seq_num 列序号从0开始
+    # res_filename 统计结果存放文件名
+
+    # merge_files_data(mydir,res_filename):
+    # 合并指定目录(mydir)下的所有分表数据到一个电子表格文件(res_filename)中的一张表中
