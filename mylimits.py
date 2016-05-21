@@ -1,4 +1,4 @@
-from verify import verify_data_str,verify_file
+from verify import verify_data_str
 
 col_A = {
     'max':10,
@@ -21,4 +21,4 @@ col_D = {
 limits = [col_A,col_B,col_C,col_D,col_D,col_D,col_D,col_D]
 filters = [verify_data_str,] * 8
 cols_sum = 8
-
+verify_dir = '.'

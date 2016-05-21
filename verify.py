@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 from myxl import *
 
 
@@ -146,3 +147,14 @@ if __name__ == "__main__":
 
     # merge_files_data(mydir,res_filename):
     # 合并指定目录(mydir)下的所有分表数据到一个电子表格文件(res_filename)中的一张表中
+    # 验证配置文件见实例：szcp.py
+    # 默认验证配置文件为mylimits.py
+    # 默认验证目录为当前目录
+    # 可以使用参数形式来指定配置文件
+    # 例如配置文件名为：szcp.py,命令行为：python3 verify.py szcp
+    default_limit = 'mylimits'
+    if len(sys.argv) > 1:
+        default_limit = sys.argv[1]
+    mylimits = __import__(default_limit)
+    verify_files(mylimits.verify_dir,mylimits.filters,
+        mylimits.limits,mylimits.cols_num)
