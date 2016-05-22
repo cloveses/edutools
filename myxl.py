@@ -16,14 +16,14 @@ def get_data(filename):
     #    print(datas)
     return datas
 
-def get_data_cols(filename):
+def get_data_cols(filename,headline_row_num=0):
     # 按列获取数据
     datas = []
     w = xlrd.open_workbook(filename)
     ws = w.sheets()[0]
     ncols = ws.ncols
     for i in range(ncols):
-        data = ws.col_values(i)
+        data = ws.col_values(i)[headline_row_num:]
         datas.append(data)
     #    print(datas)
     return datas
@@ -107,7 +107,7 @@ def save_data_sheets_xlsx(filename,datass,sheetnames):
                 ws.write(rowi,coli,celld)
     w.close()
 
-def merge_files_data(mydir,res_filename):
+def merge_files_data(mydir,res_filename,headline_rows=0):
     # 合并指定目录(mydir)下的分表数据到一个电子表格文件(res_filename)中的一张表中
     if not os.path.exists(mydir):
         print('Directory is not exist.')
@@ -118,6 +118,12 @@ def merge_files_data(mydir,res_filename):
         datas = get_data(filename)
         datass.extend(datas)
     if datass:
+        if len(datass) > 1:
+            tails = datass[1:]
+            datass = datass[:1]
+            if headline_rows > 0:
+                no_headline = [data[headline_rows:] for data in tails]
+            datass.extend(tails)
         save_datas_xlsx(res_filename,datass)
 
 if __name__ == '__main__':

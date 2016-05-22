@@ -77,7 +77,7 @@ def verify_data_str(data,cols_limits=None):
                 return info
     return info
 
-def verify_file(filename,filters,limits,ncols):
+def verify_file(filename,filters,limits,ncols,headline_row_num=0):
     """
     验证单个文件
     filters 每列过滤方法列表
@@ -88,7 +88,7 @@ def verify_file(filename,filters,limits,ncols):
     if not os.path.exists(filename):
         info = '文件不存在！\n'
         return info
-    datass = get_data_cols(filename)
+    datass = get_data_cols(filename,headline_row_num)
     if len(datass) != ncols:
         info = "表格列数不符合要求！\n"
         print(info)
@@ -101,12 +101,12 @@ def verify_file(filename,filters,limits,ncols):
                 info += ' '.join((pos_info,cell_info,'\n'))
     return info
 
-def verify_files(mdir,filters,limits,ncols):
+def verify_files(mdir,filters,limits,ncols,headline_row_num=0):
     # 验证目录下多个文件
     files = get_files(mdir)
     infos = []
     for mfile in files:
-        info = verify_file(mfile,filters,limits,ncols)
+        info = verify_file(mfile,filters,limits,ncols,headline_row_num)
         infos.append((mfile,info))
     return infos    
 
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         default_limit = sys.argv[1]
     mylimits = __import__(default_limit)
     infos = verify_files(mylimits.verify_dir,mylimits.filters,
-        mylimits.limits,mylimits.cols_sum)
+        mylimits.limits,mylimits.cols_sum,mylimits.headline_row_num)
     print()
     for info in infos:
         if info[1]:
