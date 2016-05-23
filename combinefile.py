@@ -9,7 +9,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         mdir = sys.argv[1]
         if len(sys.argv) >2:
-            headline_rows = int(sys[2])
+            headline_rows = int(sys.argv[2])
         res_file = os.path.join(mdir,'resfile.xlsx')
         merge_files_data(mdir,res_file,headline_rows)
         print('Combine files had finished!')

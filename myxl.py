@@ -118,7 +118,7 @@ def merge_files_data(mydir,res_filename,headline_rows=0):
         datas = get_data(filename)
         datass.extend(datas)
     if datass:
-        if len(datass) > 1:
+        if len(datass) > 1 and headline_rows > 0:
             tails = datass[1:]
             datass = datass[:1]
             if headline_rows > 0:
