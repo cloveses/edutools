@@ -10,10 +10,17 @@ srcs = get_data_cols('source.xls')[0]
 #获取需要被过滤的数据文件
 datass = get_data('mydata.xls')
 
+# 过滤依据列序号，从0开始
+filter_col_seq = 1
+#过滤数据类型，防止数据格式不正确
+filter_type = str
+
+
 resdata = []
 for datarow in datass:
-     # 以下[1]为过滤依据列序号，从0开始
-    if isinstance(datarow[1],str) and datarow[1] in srcs:
+    #过滤条件
+    if isinstance(datarow[filter_col_seq],filter_type)\
+        and datarow[filter_col_seq] in srcs:
         resdata.append(datarow)
     else:
         print(datarow)

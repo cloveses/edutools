@@ -1,0 +1,41 @@
+合并电子表格文件(0为标题行数)：combinefile.py mydir 0
+分类统计电子表格中某列数据(2为指定汇总列号)：summary.py my.xls 2
+
+
+
+过滤电子表格中数据:
+source.xls用于比对的基础文件
+mydata.xls被过滤的数据文件：
+过滤后数据保存在rightdata.xlsx文件中,
+过滤条件在使用时自定义
+        filterdata.py
+        
+验证电子表格文件中数据：
+1.定义mylimits.py（过滤条件定义）
+# 以下为可用限制条件参数示例，可使用其中一项或多项：
+# {
+#     'length_min':3,
+#     'length_max':6,
+#     'min':0,
+#     'max':100,
+#     're_exp':r'[ab]',
+#     'choices':['A','B'],
+# }
+from verify import verify_data_str,verify_data_int,verify_data_float
+col_A = {
+    'max':10,
+    'min':2,
+}
+
+col_B = {
+    "length_max":13,
+}
+limits = [col_A,col_B]
+filters = [verify_data_str,] * 2
+cols_sum = 8
+verify_dir = '.' #默认验证当前目录下所有文件
+headline_row_num = 1
+
+2.运行程序
+mylimits为验证条件文件名（不含扩展名）
+verify.py mylimits
