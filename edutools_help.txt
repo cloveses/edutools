@@ -39,3 +39,5 @@ headline_row_num = 1
 2.运行程序
 mylimits为验证条件文件名（不含扩展名）
 verify.py mylimits
+
+过滤跨省转学应届生：filterdatasheng.py，具体使用见源程序文件

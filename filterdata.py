@@ -8,7 +8,7 @@ from myxl import *
 srcs = get_data_cols('source.xls')[0]
 
 #获取需要被过滤的数据文件
-datass = get_data('mydata.xls')
+datass = get_data('mydata.xlsx')
 
 # 过滤依据列序号，从0开始
 filter_col_seq = 1
