@@ -17,6 +17,7 @@ filter_type = str
 
 
 resdata = []
+resdatab = []
 for datarow in datass:
     #过滤条件
     if isinstance(datarow[filter_col_seq],filter_type)\
@@ -24,6 +25,8 @@ for datarow in datass:
         resdata.append(datarow)
     else:
         print(datarow)
+        resdatab.append(datarow)
 
 #写入过滤后的数据        
-save_datas_xlsx('rightdata.xlsx',resdata)
+save_datas_xlsx('rightdatain.xlsx',resdata)
+save_datas_xlsx('rightdatanotin.xlsx',resdatab)
