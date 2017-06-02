@@ -6,4 +6,7 @@ res = []
 for i in range(173222500001,173222507853):
     if str(i) not in data_col:
         res.append(str(i))
-print(res)
+if res:
+    print('Missing number:',res)
+else:
+    print('Verify passed!')
