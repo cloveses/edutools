@@ -97,7 +97,7 @@ def verify_file(filename,filters,limits,ncols,headline_row_num=0):
         for nrow,data in enumerate(datas):
             cell_info = fun(data,limit)
             if cell_info:
-                pos_info = "行:%d 列:%d:" % (nrow + 1,ncol + 1)
+                pos_info = "行:%d 列:%d:" % (nrow + 1 + headline_row_num,ncol + 1)
                 info += ' '.join((pos_info,cell_info,'\n'))
     return info
 
