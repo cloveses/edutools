@@ -1,6 +1,8 @@
 import os
 import xlrd
 import xlwt
+import string
+import itertools
 
 def get_data(filename):
      #既可以打开xls类型的文件，也可以打开xlsx类型的文件
@@ -126,5 +128,27 @@ def merge_files_data(mydir,res_filename,headline_rows=0):
             datass.extend(tails)
         save_datas_xlsx(res_filename,datass)
 
+def get_col_names():
+    col_names = []
+    col_pres = itertools.permutations(string.ascii_lowercase, 2)
+    col_posts = itertools.cycle(string.ascii_lowercase)
+    for col_pre,col_post in zip(col_pres,col_posts):
+        col_pre = ''.join(col_pre)
+        col_names.append(''.join((col_pre,col_post)))
+    return col_names
+
+def cp2db(xls_file,tablename,header=True):
+    datas = get_data(xls_file)
+    if header:
+        datas = datas[1:]
+    col_names = get_col_names()
+    col_num = max((len(data) for data in datas))
+    col_names = col_names[:col_num + 1]
+    sql_cols = [' '.join((col_name,'text')) for col_name in col_names]
+    sqlstr = ' '.join(('create table', tablename, '(',','.join(sql_cols),')'))
+    print(sqlstr)
+    print(datas)
+
 if __name__ == '__main__':
-    pass
+    cp2db('sz.xls','sz')
+    get_col_names()
