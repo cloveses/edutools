@@ -137,18 +137,44 @@ def get_col_names():
         col_names.append(''.join((col_pre,col_post)))
     return col_names
 
-def cp2db(xls_file,tablename,header=True):
+def clean_data(data):
+    if isinstance(data,float):
+        if str(data).endswith('.0'):
+            data = str(int(data))
+        else:
+            data = str(data)
+    return data
+
+from pgdb import connect
+def get_db(host='localhost:5432',user='postgres',password='123456',database='test'):
+    con = connect(host=host,user=user,database=database,password=password)
+    cur = con.cursor()
+    return con,cur
+
+def cp2db(xls_file,tablename,header=True,is_create=False):
     datas = get_data(xls_file)
     if header:
         datas = datas[1:]
+    datas = [list(map(clean_data,row)) for row in datas]
     col_names = get_col_names()
     col_num = max((len(data) for data in datas))
-    col_names = col_names[:col_num + 1]
+    col_names = col_names[:col_num]
+    insertstr = ['%s' for i in range(len(col_names))]
+    insertstr = ','.join(insertstr)
+    insertstr = ' '.join(('insert into',tablename,'values(',insertstr,')'))
     sql_cols = [' '.join((col_name,'text')) for col_name in col_names]
     sqlstr = ' '.join(('create table', tablename, '(',','.join(sql_cols),')'))
     print(sqlstr)
+    print(insertstr)
     print(datas)
+    con,cur = get_db()
+    if is_create:
+        cur.execute(sqlstr)
+    cur.executemany(insertstr,datas)
+    con.commit()
+    cur.close()
+    con.close()
 
 if __name__ == '__main__':
-    cp2db('sz.xls','sz')
+    cp2db('sz.xls','sz',is_create=True)
     get_col_names()
