@@ -138,7 +138,8 @@ def get_col_names():
     return col_names
 
 def clean_data(data):
-    data = data.strip()
+    if isinstance(data,str):
+        data = data.strip()
     if isinstance(data,float):
         if str(data).endswith('.0'):
             data = str(int(data))
