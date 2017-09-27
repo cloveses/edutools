@@ -166,9 +166,9 @@ def cp2db(xls_file,tablename,header=True,is_create=False):
     insertstr = ' '.join(('insert into',tablename,'values(',insertstr,')'))
     sql_cols = [' '.join((col_name,'text')) for col_name in col_names]
     sqlstr = ' '.join(('create table', tablename, '(',','.join(sql_cols),')'))
-    print(sqlstr)
-    print(insertstr)
-    print(datas)
+    # print(sqlstr)
+    # print(insertstr)
+    # print(datas)
     con,cur = get_db()
     if is_create:
         cur.execute(sqlstr)
@@ -177,6 +177,24 @@ def cp2db(xls_file,tablename,header=True,is_create=False):
     cur.close()
     con.close()
 
+def cp2db_files_indir(dirname,tablename,header=True):
+    """
+    导入单个目录下所有电子表格中的数据至postgresql中指定数据库、指定的表中。
+    便于在数据库中用SQL查询处理。
+    之后用\copy tablename to 'aa.csv' with csv
+    """
+    if not os.path.exists(dirname):
+        print('Directory is not exist.')
+        return
+    filenames = get_files(dirname)
+    for i,f in enumerate(filenames):
+        if i == 0:
+            cp2db(f,tablename,header,True)
+        else:
+            cp2db(f,tablename,header)
+
+
 if __name__ == '__main__':
-    cp2db('sz.xls','sz',is_create=True)
-    get_col_names()
+    # cp2db('sz.xls','sz',is_create=True)
+    # get_col_names()
+    cp2db_files_indir('.\\sxtst','szz')
