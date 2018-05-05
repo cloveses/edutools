@@ -1,5 +1,10 @@
 import xlrd
 
+__author__ = 'cloveses'
+
+# 本程序用于读取电子表格数据时对指定的单元格转换为指定的数据类型
+# 用于导入电子表格中的数据至数据库中
+
 TYPES = ('empty','string','number','date','boolean','error')
 
 def TypeExcetion(Exception):
